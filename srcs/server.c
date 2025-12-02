@@ -10,20 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libft/libft.h"
 #include <signal.h>
 #include <unistd.h>
-#include "../libft/libft.h"
 
-static volatile	sig_atomic_t	g_data = 0;
+static volatile sig_atomic_t	g_data = 0;
 
 void	signal_handler(int signal)
 {
-	int	bit_count;
+	int		bit_count;
 	char	curr_char;
 
 	bit_count = (g_data >> 8) & 0xFF;
 	curr_char = g_data & 0XFF;
-
 	if (signal == SIGUSR2)
 		curr_char |= (1 << bit_count);
 	bit_count++;
@@ -36,18 +35,16 @@ void	signal_handler(int signal)
 	g_data = (bit_count << 8) | curr_char;
 }
 
-int main(void)
+int	main(void)
 {
 	pid_t	pid;
 
 	pid = getpid();
 	ft_printf("Process ID is: %d\n", pid);
-
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
-
-	while (1);
-		pause();
-
+	while (1)
+		;
+	pause();
 	return (0);
 }

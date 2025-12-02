@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libft/libft.h"
 #include <signal.h>
 #include <unistd.h>
-#include "../libft/libft.h"
 
 void	send_char(pid_t server_pid, char c)
 {
@@ -43,14 +43,14 @@ void	send_message(pid_t server_pid, char *message)
 	send_char(server_pid, '\n');
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	pid_t	server_pid;
 
 	if (argc != 3)
 	{
 		write(2, "Usage: ./client <PID> <message>\n", 33);
-		return (1);	
+		return (1);
 	}
 	server_pid = ft_atoi(argv[1]);
 	if (server_pid <= 0)
